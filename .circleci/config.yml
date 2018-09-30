@@ -61,7 +61,7 @@ workflows:
   test_build_deploy:
     jobs:
     - build
-    - create-image
+    - create-image:
       requires:
       - build
 
