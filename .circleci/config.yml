@@ -56,3 +56,12 @@ jobs:
 
     - run: docker build . -t precious-check-api:latest
 
+workflows:
+  version: 2
+  test_build_deploy:
+    jobs:
+    - build
+    - create-image
+      requires:
+      - build
+
