@@ -40,7 +40,7 @@ jobs:
     # run tests!
     - run: mvn integration-test
 
-    - run: mvn sonar:sonar -Dsonar.projectKey=desponda_precious-check-api -Dsonar.organization=desponda-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=7599fc24ca3cc34bedefd3dc8861016484b158ea
+    - run: mvn sonar:sonar -Dsonar.projectKey=desponda_precious-check-api -Dsonar.organization=desponda-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_KEY}
 
   create-image:
     docker:
