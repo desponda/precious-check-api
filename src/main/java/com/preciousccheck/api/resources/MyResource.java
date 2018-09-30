@@ -1,4 +1,4 @@
-package com.preciousccheck.API.resources;
+package com.preciousccheck.api.resources;
 
 
 import org.springframework.web.bind.annotation.GetMapping;

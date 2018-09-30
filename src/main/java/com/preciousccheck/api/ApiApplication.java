@@ -1,4 +1,4 @@
-package com.preciousccheck.API;
+package com.preciousccheck.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

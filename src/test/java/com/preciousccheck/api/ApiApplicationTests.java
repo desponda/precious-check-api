@@ -1,4 +1,4 @@
-package com.preciousccheck.API;
+package com.preciousccheck.api;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
