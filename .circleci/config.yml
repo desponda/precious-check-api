@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  tests:
     docker:
     # specify the version you desire here
     - image: circleci/openjdk:8-jdk
@@ -39,4 +39,24 @@ jobs:
 
     # run tests!
     - run: mvn integration-test
+
+    - run: mvn sonar:sonar \
+        -Dsonar.projectKey=desponda_precious-check-api \
+        -Dsonar.organization=desponda-github \
+        -Dsonar.host.url=https://sonarcloud.io \
+        -Dsonar.login=7599fc24ca3cc34bedefd3dc8861016484b158ea
+
+  create-image:
+    docker:
+
+    - image: docker
+
+    working_directory: /opt/app
+
+    steps:
+    - checkout
+
+    - run: mvn package
+
+    - run: docker build . -t precious-check-api:latest
 
