@@ -62,6 +62,6 @@ workflows:
     jobs:
     - build
     - create-image:
-      requires:
-      - build
+        requires:
+        - build
 
