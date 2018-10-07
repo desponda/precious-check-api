@@ -34,6 +34,7 @@ jobs:
         # fallback to using the latest cache if no exact match is found
         - v1-dependencies-
 
+
     - run: mvn dependency:go-offline
 
     - save_cache:
@@ -47,12 +48,12 @@ jobs:
     - run: mvn sonar:sonar -Dsonar.projectKey=desponda_precious-check-api -Dsonar.organization=desponda-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_KEY}
 
     # package and upload
-    - run:
-        command: |
-          mvn package
-          docker build . -t preciouscheck/precious-check-api:${CIRCLE_SHA1:0:5}
-          docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASS}
-          docker push preciouscheck/precious-check-api:${CIRCLE_SHA1:0:5}
+    - run: mvn package
+    - run: docker build . -t preciouscheck/precious-check-api:${CIRCLE_SHA1:0:5}
+    - run: docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASS}
+    - run: docker push preciouscheck/precious-check-api:${CIRCLE_SHA1:0:5}
 
+    #deploy
+    -run: aws cloudformation --deploy --template-file ecs/preciouscheck-service.yaml --stack-name preciouscheck-ecs-service --parameter-overrides ImageVersion=${CIRCLE_SHA1:0:5}
 
 

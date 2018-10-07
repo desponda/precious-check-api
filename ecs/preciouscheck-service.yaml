@@ -1,5 +1,8 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: Cloudformation for precious check api service
+Parameters:
+  ImageVersion:
+    Type: String
 Resources:
   PreciousService:
     Type: AWS::ECS::Service
@@ -8,14 +11,18 @@ Resources:
       Cluster: preciouscheck
       DesiredCount: 2
       ServiceName: preciouscheck-service
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 50
 
   PreciousTaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
+      Family: preciouscheck-ecs-service
       NetworkMode: host
       ContainerDefinitions:
       - Name: main
-        Image: preciouscheck/precious-check-api:a2d4e
+        Image: !Join ['',['preciouscheck/precious-check-api:', !Ref ImageVersion]]
         Memory: 300
         Cpu: 2048
 
