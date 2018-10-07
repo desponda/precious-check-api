@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
     # specify the version you desire here
-    - image: circleci/openjdk:8-jdk
+    - image: preciouscheck/precious-check-build-image:2
 
     # Specify service dependencies here if necessary
     # CircleCI maintains a library of pre-built images
@@ -42,26 +42,13 @@ jobs:
 
     - run: mvn sonar:sonar -Dsonar.projectKey=desponda_precious-check-api -Dsonar.organization=desponda-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_KEY}
 
-  create-image:
-    docker:
+    # package and upload
+    - run:
+        command: |
+          mvn package
+          docker build . -t preciouscheck/precious-check-api:${CIRCLE_SHA1}
+          docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASS}
+          docker push preciouscheck/precious-check-api:${CIRCLE_SHA1}
 
-    - image: docker
 
-    working_directory: /opt/app
-
-    steps:
-    - checkout
-
-    - run: mvn package
-
-    - run: docker build . -t precious-check-api:latest
-
-workflows:
-  version: 2
-  test_build_deploy:
-    jobs:
-    - build
-    - create-image:
-        requires:
-        - build
 
