@@ -53,7 +53,7 @@ jobs:
         key: v1-dependencies-{{ checksum "pom.xml" }}
     # run tests!
     - run: mvn integration-test
-
+    - run: mvn test
     - run: mvn sonar:sonar -Dsonar.projectKey=desponda_precious-check-api -Dsonar.organization=desponda-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_KEY}
   deploy:
     docker:
