@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Cloudformation for precious check api service
+Resources:
+  PreciousService:
+    Type: AWS::ECS::Service
+    Properties:
+      TaskDefinition: !Ref PreciousTaskDefinition
+      Cluster: preciouscheck
+      DesiredCount: 2
+      ServiceName: preciouscheck-service
+
+  PreciousTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      NetworkMode: host
+      ContainerDefinitions:
+      - Name: main
+        Image: preciouscheck/precious-check-api:a2d4e
+        Memory: 300
+        Cpu: 2048
+
+
+
