@@ -13,6 +13,7 @@ public class ApiApplicationTests {
 
     @Test
     public void contextLoads() {
+        ApiApplication.main(new String[0]);
     }
 
     @Test
