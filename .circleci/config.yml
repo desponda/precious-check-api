@@ -50,9 +50,9 @@ jobs:
     - run:
         command: |
           mvn package
-          docker build . -t preciouscheck/precious-check-api:${CIRCLE_SHA1}
+          docker build . -t preciouscheck/precious-check-api:${CIRCLE_SHA1:0:5}
           docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASS}
-          docker push preciouscheck/precious-check-api:${CIRCLE_SHA1}
+          docker push preciouscheck/precious-check-api:${CIRCLE_SHA1:0:5}
 
 
 
