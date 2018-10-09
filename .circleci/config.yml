@@ -62,7 +62,8 @@ jobs:
     steps:
     - checkout
     #deploy
-    - run: aws cloudformation deploy --template-file ecs/preciouscheck-service.yaml --stack-name preciouscheck-ecs-service --parameter-overrides ImageVersion=${CIRCLE_SHA1:0:5} --region us-east-1
+    - run: aws cloudformation deploy --template-file ecs/preciouscheck-service.yaml --stack-name preciouscheck-ecs-service --parameter-overrides ImageVersion=${CIRCLE_SHA1:0:5} DBPassword=${DBPassword} DBUsername=${DBUsername} --region us-east-1
+
 
 
 

@@ -3,6 +3,10 @@ Description: Cloudformation for precious check api service
 Parameters:
   ImageVersion:
     Type: String
+  DBPassword:
+    Type: String
+  DBUsername:
+    Type: String
 Resources:
   PreciousService:
     Type: AWS::ECS::Service
@@ -25,6 +29,13 @@ Resources:
         Image: !Join ['',['preciouscheck/precious-check-api:', !Ref ImageVersion]]
         Memory: 300
         Cpu: 2048
+        Environment:
+        - Name: db_url
+          Value: preciouscheckdb.cluster-clwgmh3zsmsd.us-east-1.rds.amazonaws.com
+        - Name: db_username
+          Value: !Ref DBUsername
+        - Name: db_password
+          Value: !Ref DBPassword
 
 
 
