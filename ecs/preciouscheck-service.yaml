@@ -31,7 +31,7 @@ Resources:
         Cpu: 2048
         Environment:
         - Name: db_url
-          Value: preciouscheckdb.cluster-clwgmh3zsmsd.us-east-1.rds.amazonaws.com
+          Value: preciouscheckdb.cluster-clwgmh3zsmsd.us-east-1.rds.amazonaws.com/preciousdb
         - Name: db_username
           Value: !Ref DBUsername
         - Name: db_password
